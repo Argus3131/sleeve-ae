@@ -1,0 +1,30 @@
+spring:
+  profiles:
+    active: dev
+
+
+  jpa:
+    open-in-view: true
+    database: mysql
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+#    hibernate:
+#      ddl-auto: update # 第一次建表create  后面用update，要不然每次重启都会新建表
+    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: true
+
+
+wx:
+ appid: wxa34e2f44baff86d1
+ secret: e07e515a34a2c1f68d5e22b49805d449
+ code2Session: https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code
+
+
+missyou.security.jwt-key: 123ArgusYan4
+missyou.security.token-expired-in: 864000
+
