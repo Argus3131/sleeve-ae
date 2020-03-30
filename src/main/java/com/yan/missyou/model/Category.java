@@ -1,5 +1,7 @@
 package com.yan.missyou.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Where;
@@ -23,7 +25,7 @@ import java.util.Objects;
 public class Category extends BaseEntity{
     private static final long serialVersionUID = 3196433383135956450L;
     @Id
-    private int id;
+    private Long id;
     private String name;
     private String description;
     private Boolean isRoot;
@@ -32,4 +34,7 @@ public class Category extends BaseEntity{
     private Integer index;
     private Integer online;
     private Integer level;
+    @ManyToMany(fetch=FetchType.LAZY,mappedBy="categoryList")
+    @JsonBackReference
+    private List<Coupon> couponList;
 }

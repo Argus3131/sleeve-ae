@@ -2,12 +2,15 @@ package com.yan.missyou.vo;
 
 import com.yan.missyou.model.BaseEntity;
 import com.yan.missyou.model.Category;
+import com.yan.missyou.model.Coupon;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.beanutils.BeanUtils;
 
 import javax.persistence.Id;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Argus
@@ -34,5 +37,9 @@ public class CategoryPureVO extends BaseEntity {
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
+    }
+
+    public static List<CategoryPureVO> getList(List<Category> categoryList) {
+        return categoryList.stream().map(CategoryPureVO::new).collect(Collectors.toList());
     }
 }

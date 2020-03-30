@@ -2,13 +2,12 @@ package com.yan.missyou.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Where;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -21,6 +20,7 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
+@Where(clause = "delete_time is null and online = 1")
 public class Activity extends BaseEntity{
     private static final long serialVersionUID = 2958902154675393098L;
     @Id
@@ -34,4 +34,12 @@ public class Activity extends BaseEntity{
     private String entranceImg;
     private String internalTopImg;
     private String name;
+    /**
+     * 导航属性：
+     *  Activity和Coupon 原先的多对多
+     *  转化为1对多的关系
+     */
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "activityId")
+    private List<Coupon> couponList;
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 
 @RestController
 @RequestMapping("/v1/banner")
@@ -26,7 +27,7 @@ public class BannerController {
 //    @ScopeLevel
     @GetMapping("/id/{id}")
     @ResponseBody
-    public Banner getBannerById(@PathVariable @NotNull Long id) {
+    public Banner getBannerById(@PathVariable @PositiveOrZero Long id) {
         Banner banner = iBannerService.getBannerById(id);
         if (banner == null) {
             throw new NotFoundException(30005);

@@ -2,6 +2,7 @@ package com.yan.missyou.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,6 +20,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Where(clause = "delete_time is null")
 public class Banner extends BaseEntity implements Serializable {
     private static final long serialVersionUID = -2603400293505352417L;
     @Id

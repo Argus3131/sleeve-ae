@@ -1,11 +1,16 @@
 package com.yan.missyou.core.interceptors;
 
 import com.auth0.jwt.interfaces.Claim;
+import com.yan.missyou.dao.UserDao;
+import com.yan.missyou.dto.LocalUser;
 import com.yan.missyou.exception.http.ForbiddenException;
+import com.yan.missyou.exception.http.NotFoundException;
 import com.yan.missyou.exception.http.UnAuthenticatedException;
+import com.yan.missyou.model.User;
 import com.yan.missyou.utils.JWTToken;
 import com.yan.missyou.validators.ScopeLevel;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -19,16 +24,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * https://www.jianshu.com/p/d242d1f21633
  * @author Argus
  * @className AuthorizationInterceptor
- * @description: TODO
+ * @description: 拦截用户有@ScopeLevel注解 的请求判断是否有token
  * @date 2020/3/24 13:45
  * @Version V1.0
  */
 @Component
 public class AuthorizationInterceptor implements HandlerInterceptor {
+    @Autowired
+    private UserDao userDao;
+
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        //log.info("---------------------开始进入请求地址拦截----------------------------");
         // 获取scopeLevel注解
         ScopeLevel scopeLevel = this.getScopeLevel(handler);
         if (null == scopeLevel) {
@@ -56,19 +67,39 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
         if (null == claims) {
             throw new UnAuthenticatedException(10004);
         }
-        return this.verifyPermission(claims, level);
+        boolean valid = this.verifyPermission(claims, level);
+        // 校验通过 保存用户信息到当前线程 ThreadLocal是除了加锁这种同步方式之外的一种保证一种规避多线程访问出现线程不安全的方法
+        if (valid) {
+            Integer scope = claims.get("scope").asInt();
+            Long uid = claims.get("uid").asLong();
+            // 查数据库
+            User user = userDao.findById(uid)
+                    .orElseThrow(() -> {
+                        return new NotFoundException(20002);
+                    });
+            LocalUser.setLocalUser(user,scope);
+        }
+        return valid;
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-
+        //log.info("--------------处理请求完成后视图渲染之前的处理操作---------------");
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-
+        //log.info("---------------视图渲染之后的操作-------------------------0");
+        LocalUser.localUser.set(null);
     }
 
+
+    /**
+     * 校验接口是否有权限
+     * @param claims
+     * @param level
+     * @return
+     */
     private Boolean verifyPermission(Map<String, Claim> claims,Integer level) {
 //        String uid = claims.get("uid").asString();
         System.out.println(claims);

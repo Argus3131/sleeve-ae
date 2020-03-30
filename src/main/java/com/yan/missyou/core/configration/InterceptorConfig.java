@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 /**
  * @author Argus
  * @className InterceptorConfig
- * @description: TODO
+ * @description: 注册用户权限的拦截器
  * @date 2020/3/24 14:25
  * @Version V1.0
  */
@@ -18,6 +18,7 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
 
     @Autowired
     AuthorizationInterceptor authorizationInterceptor;
+
     // 注册拦截器
     protected void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authorizationInterceptor)

@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 /**
  * @author Argus
  * @className TokenDTO
- * @description: TODO
+ * @description: 作为接受前端 登录相关的参数设定的
  * @date 2020/3/20 21:48
  * @Version V1.0
  */

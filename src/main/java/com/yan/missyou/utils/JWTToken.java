@@ -81,6 +81,7 @@ public class JWTToken {
 
     /**
      * 校验令牌是否失效
+     *
      * @param token
      * @return
      */
@@ -90,10 +91,9 @@ public class JWTToken {
         Algorithm algorithm = Algorithm.HMAC256(JWTToken.secret);
         JWTVerifier verifier = JWT.require(algorithm).build();
         Map<String, Claim> map;
-        DecodedJWT jwt;
         // 解析token
         try {
-            jwt = verifier.verify(token);
+            verifier.verify(token);
         } catch (JWTVerificationException e) {
             return false;
         }
@@ -106,11 +106,14 @@ public class JWTToken {
         String token = null;
         try {
             token = JWT.create()
+                    //  记录用户id
                     .withClaim("uid", uid)
+                    //  level scope等级
                     .withClaim("scope", scope)
-                    //设置过期时间为10天
+                    //  设置过期时间为10天
                     .withExpiresAt(map.get("expiredTime"))
                     .withIssuedAt(map.get("now"))
+                    //  加密
                     .sign(algorithm);
         } catch (Exception e) {
             e.printStackTrace();
@@ -120,6 +123,7 @@ public class JWTToken {
     }
 
     private static Map<String, Date> calculateExpiredIssues() {
+        // 使用map去记录两个时间
         Map<String, Date> map = new HashMap<>();
         Calendar calendar = Calendar.getInstance();
         // 获取一个以秒计算的当前时间

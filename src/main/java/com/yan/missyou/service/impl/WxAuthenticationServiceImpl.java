@@ -63,7 +63,12 @@ public class WxAuthenticationServiceImpl implements IWxAuthenticationService {
         return generateJWT(map);
     }
 
-    public String generateJWT(HashMap<String, Object> map) {
+    /**
+     *
+     * @param map
+     * @return
+     */
+    private String generateJWT(HashMap<String, Object> map) {
         String openid = (String) map.get("openid");
         User user = userDao.findByOpenid(openid);
         String token;

@@ -116,10 +116,9 @@ public class GlobalExceptionHandler {
             System.out.println(m);
             String name = m.split("[.]")[1]; //getSpuDetail.id 截取
             System.out.println(name);
-            ConstraintViolation violation = error;
-            //可打断点看到效果
+            ConstraintViolation violation = error;//可打断点看到效果
 //            System.out.println(violation.getMessage());
-            // 最后项目完结时候 需要更改提示。
+            // 最后项目完结 需要更改提示。
             errorMsg.append(name).append(" ").append(msg).append(";");
         }
         String esg = errorMsg.toString();

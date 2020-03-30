@@ -13,7 +13,7 @@ import java.util.List;
  * 分页对象 类似jpa原生的Page对象功能一样保存分页数据 只不过自定义了一下
  * @author Argus
  * @className Paging
- * @description: TODO
+ * @description: 将pojo 转换为 接口定义的Page对象
  * @date 2020/3/16 20:26
  * @Version V1.0
  */

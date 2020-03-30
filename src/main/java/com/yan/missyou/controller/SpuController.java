@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 /**
  * @author Argus
@@ -30,7 +31,7 @@ public class SpuController {
 
     @GetMapping("/id/{id}/detail")
     @ResponseBody
-    public Spu getSpuDetail(@PathVariable @Positive Long id) {
+    public Spu getSpuDetail(@PathVariable @PositiveOrZero Long id) {
         Spu spu = iSpuService.findSpuDetail(id);
         if (null == spu) throw new NotFoundException(30002);
         return spu;
@@ -39,8 +40,8 @@ public class SpuController {
 
     @GetMapping("/latest")
     @ResponseBody
-    public PagingDozer<Spu,SpuSimplifyVO> getLatestSpuList(@RequestParam(value = "start", required = false, defaultValue = "0") Integer start,
-                                      @RequestParam(value = "count", required = false, defaultValue = "10") Integer count) {
+    public PagingDozer<Spu,SpuSimplifyVO> getLatestSpuList(@RequestParam(value = "start", required = false, defaultValue = "0") @PositiveOrZero Integer start,
+                                      @RequestParam(value = "count", required = false, defaultValue = "10") @PositiveOrZero Integer count) {
         PageCounter pageCounter = PageCounter.initPageCounter(start, count);
         Page<Spu> spuPage = iSpuService.findSpuLatestPaging(pageCounter.getPage(),pageCounter.getCount());
         PagingDozer<Spu,SpuSimplifyVO> pagingDozer = new PagingDozer<>(spuPage,SpuSimplifyVO.class);
@@ -58,7 +59,7 @@ public class SpuController {
      */
     @GetMapping("/by/category/{id}")
     @ResponseBody
-    public PagingDozer<Spu,SpuSimplifyVO> getSpuDetail(@PathVariable(name = "id") @Positive(message = "{id.positive}") Long id,
+    public PagingDozer<Spu,SpuSimplifyVO> getSpuDetail(@PathVariable(name = "id") @PositiveOrZero(message = "{id.positive}") Long id,
                             @RequestParam(name = "is_root") @NotNull Boolean isRoot,
                             @RequestParam(name = "start",defaultValue = "0") Integer start,
                             @RequestParam(name = "count",defaultValue = "10") Integer count) {

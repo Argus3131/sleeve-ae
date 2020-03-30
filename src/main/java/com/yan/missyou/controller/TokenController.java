@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.validation.constraints.NotBlank;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,8 +59,7 @@ public class TokenController {
      * @return
      */
     @PostMapping("/verify")
-    public Map<String,Boolean> verifyToken(@RequestBody String token) {
-        System.out.println(token);
+    public Map<String,Boolean> verifyToken(@RequestBody @NotBlank String token) {
         Boolean valid = JWTToken.verify(token);
         Map<String,Boolean> map = new HashMap<>();
         map.put("is_valid",valid);
