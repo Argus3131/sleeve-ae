@@ -26,6 +26,7 @@ import java.util.Objects;
 @Where(clause = "delete_time is null")
 @ToString
 public class User extends BaseEntity implements Serializable {
+    private static final long serialVersionUID = -195004502368190595L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,5 +38,8 @@ public class User extends BaseEntity implements Serializable {
     private String mobile;
     @Convert(converter = JsonAndMap.class)
     private HashMap<String,Object> wxProfile;
+
+
+
 
 }

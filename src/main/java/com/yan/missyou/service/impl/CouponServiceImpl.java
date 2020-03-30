@@ -80,7 +80,7 @@ public class CouponServiceImpl implements ICouponService {
         User user = Optional.of((User) map.get("user"))
                 .orElseThrow(() -> new UnAuthenticatedException(10005));
         Long uid = user.getId();
-        //获取优惠券 查看活动是否存在 因为业务规定活动 下面包含优惠券 1对多
+        // 获取优惠券 查看活动是否存在 因为业务规定活动 下面包含优惠券 1对多
         // 获取cid 查询活动是否存在 通过导航属性join连表的 从表id查询
         Optional<Activity> activityOptional = activityDao.getByCouponListId(cid);
         Date now = new Date();

@@ -31,6 +31,11 @@ public enum CouponStatus {
         return description;
     }
 
+    /**
+     *
+     * @param status 根据状态 过滤符合条件的枚举值
+     * @return CouponStatus枚举类
+     */
     public static CouponStatus getStatus(Integer status) {
         return Stream.of(CouponStatus.values())
                 .filter(item -> item.status.equals(status))

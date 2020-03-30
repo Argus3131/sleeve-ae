@@ -45,6 +45,7 @@ public class WxAuthenticationServiceImpl implements IWxAuthenticationService {
      * @param code 是小程序发起的code码无法伪造 需要小程序去调试
      * @return
      */
+    @SuppressWarnings("unchecked")
     @Override
     public String code2session(String code) {
         if (StringUtils.isEmpty(code)) {
