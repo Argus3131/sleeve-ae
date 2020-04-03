@@ -90,7 +90,8 @@ public class JWTToken {
         // 解密
         Algorithm algorithm = Algorithm.HMAC256(JWTToken.secret);
         JWTVerifier verifier = JWT.require(algorithm).build();
-        Map<String, Claim> map;
+//        Map<String, Claim> map;
+        verifier.verify(token);
         // 解析token
         try {
             verifier.verify(token);

@@ -1,5 +1,6 @@
 package com.yan.missyou.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.yan.missyou.utils.GenericAndJson;
 import com.yan.missyou.utils.JsonAndList;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author Argus
@@ -29,13 +31,14 @@ import java.util.Objects;
 @Setter
 public class Sku {
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private BigDecimal price;
     private BigDecimal discountPrice;
     private Boolean online;
     private String img;
     private String title;
-    private int spuId;
+    private Long spuId;
     // 用String去接收Json数据转成JSON字符串
     // todo 为了解决Json转换成List或者Map的结构 给前端 提出的一个解决方案
     private String specs;
@@ -43,9 +46,11 @@ public class Sku {
     /**
      * 修改getter和setter 让前端拿到的是转换后的数据
      * 模型类 可以适度的封装一些业务逻辑
+     *
      * @return List<Spec>
      */
     public List<Spec> getSpecs() {
+        // 匿名内部类 new TypeReference<List<Spec>>() {}
         return GenericAndJson.jsonToObjOrCollection(this.specs, new TypeReference<List<Spec>>() {
         });
     }
@@ -55,8 +60,18 @@ public class Sku {
     }
 
     private String code;
-    private int stock;
-    private Integer categoryId;
-    private Integer rootCategoryId;
+    private Long stock;
+    private Long categoryId;
+    private Long rootCategoryId;
 //    private String test;
+
+
+    public BigDecimal getActcalMoney() {
+        return discountPrice == null ? price : discountPrice;
+    }
+
+    @JsonIgnore
+    public List<String> getSpecValueList() {
+        return this.getSpecs().stream().map(Spec::getValue).collect(Collectors.toList());
+    }
 }

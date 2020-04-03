@@ -25,6 +25,7 @@ import java.util.Objects;
 public class Category extends BaseEntity{
     private static final long serialVersionUID = 3196433383135956450L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String description;
@@ -37,4 +38,7 @@ public class Category extends BaseEntity{
     @ManyToMany(fetch=FetchType.LAZY,mappedBy="categoryList")
     @JsonBackReference
     private List<Coupon> couponList;
+
+
+
 }

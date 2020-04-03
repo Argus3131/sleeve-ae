@@ -27,6 +27,7 @@ import java.util.Objects;
 public class Spu extends BaseEntity implements Serializable {
     private static final long serialVersionUID = -6119699006505529591L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String subtitle;

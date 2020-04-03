@@ -21,6 +21,7 @@ import java.util.Objects;
 public class ThemeSpu implements Serializable {
     private static final long serialVersionUID = -3404110134856798648L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int themeId;
     private int spuId;

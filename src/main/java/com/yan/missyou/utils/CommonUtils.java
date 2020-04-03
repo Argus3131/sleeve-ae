@@ -2,6 +2,7 @@ package com.yan.missyou.utils;
 
 import javax.validation.constraints.NotNull;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -18,5 +19,11 @@ public class CommonUtils {
         boolean before = start.before(now);
         boolean after = end.after(now);
         return before && after;
+    }
+
+
+    public static Calendar addSomeSeconds(Calendar calendar,int seconds) {
+        calendar.add(Calendar.SECOND,seconds);
+        return calendar;
     }
 }

@@ -73,6 +73,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
             Integer scope = claims.get("scope").asInt();
             Long uid = claims.get("uid").asLong();
             // 查数据库
+            System.out.println(uid);
             User user = userDao.findById(uid)
                     .orElseThrow(() -> {
                         return new NotFoundException(20002);

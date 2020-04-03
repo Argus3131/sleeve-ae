@@ -1,6 +1,7 @@
 package com.yan.missyou.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.yan.missyou.dto.SkuInfoDTO;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Where;
@@ -11,6 +12,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author Argus
@@ -26,6 +28,7 @@ import java.util.Objects;
 public class Coupon extends BaseEntity{
     private static final long serialVersionUID = -8672094403249648727L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long activityId;
     private String title;
@@ -43,4 +46,10 @@ public class Coupon extends BaseEntity{
     @ManyToMany(fetch=FetchType.LAZY)
     @JoinTable(name = "coupon_category",joinColumns = @JoinColumn(name = "couponId"), inverseJoinColumns = @JoinColumn(name = "categoryId"))
     private List<Category> categoryList;
+
+
+
+    public List<Long> getCategoryIds() {
+        return categoryList.stream().map(Category::getId).collect(Collectors.toList());
+    }
 }

@@ -14,6 +14,7 @@ import java.util.Objects;
 @Table(name = "coupon_category", schema = "sleeve", catalog = "")
 public class CouponCategory {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long categoryId;
     private Long couponId;

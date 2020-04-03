@@ -58,8 +58,9 @@ public class TokenController {
      * @param token
      * @return
      */
-    @PostMapping("/verify")
-    public Map<String,Boolean> verifyToken(@RequestBody @NotBlank String token) {
+    @PostMapping("/token/verify")
+    public Map<String,Boolean> verifyToken(@RequestHeader @NotBlank String token) {
+        System.out.println(token);
         Boolean valid = JWTToken.verify(token);
         Map<String,Boolean> map = new HashMap<>();
         map.put("is_valid",valid);

@@ -22,6 +22,7 @@ import java.util.Objects;
 public class BannerItem extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 8281625482736840311L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String img;
     private String keyword;

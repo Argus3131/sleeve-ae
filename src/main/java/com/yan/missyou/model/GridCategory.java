@@ -22,6 +22,7 @@ import java.util.Objects;
 public class GridCategory extends BaseEntity {
     private static final long serialVersionUID = -6043931951848274737L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String title;
     private String img;

@@ -24,6 +24,7 @@ import java.util.Objects;
 public class Theme extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 5275891955960796480L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String description;

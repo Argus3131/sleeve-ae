@@ -80,7 +80,7 @@ public class OptionalTest {
     @Test
     public void testOptional6() {
         Optional<String> opt = Optional.of("test");
-        String s = opt.map(t-> {return t+"newString";}).orElse("默认值");
+        String s = opt.map(t-> t+"newString").orElse("默认值");
         System.out.println(s);
     }
 
@@ -88,7 +88,7 @@ public class OptionalTest {
     public void testOptional7() {
         Optional<String> opt = Optional.ofNullable(null);
         // .filter 是返回Boolean值 不过
-        String s = opt.map(t-> {return t+"newString";}).orElse("默认值");
+        String s = opt.map(t-> t+"newString").orElse("默认值");
         System.out.println(s);
     }
 }

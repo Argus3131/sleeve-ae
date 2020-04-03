@@ -21,6 +21,7 @@ import java.util.Objects;
 public class SpuImg extends BaseEntity implements Serializable {
     private static final long serialVersionUID = -2130888936875726764L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String img;
     private Integer spuId;

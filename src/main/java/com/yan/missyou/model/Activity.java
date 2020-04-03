@@ -24,6 +24,7 @@ import java.util.Objects;
 public class Activity extends BaseEntity{
     private static final long serialVersionUID = 2958902154675393098L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String description;

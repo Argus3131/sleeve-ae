@@ -33,6 +33,6 @@ public class UserCoupon implements Serializable {
     private Integer status;
     private Date createTime;
     // 记录用户的优惠券在哪个订单里面使用了
-    private Integer orderId;
+    private Long orderId;
     private Date updateTime;
 }
